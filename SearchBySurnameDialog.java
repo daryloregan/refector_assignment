@@ -21,7 +21,7 @@ import javax.swing.border.EtchedBorder;
 
 public class SearchBySurnameDialog extends JDialog implements ActionListener{
 	EmployeeDetails parent;
-	JButton search, cancel;
+	JButton searchbtn, cancelbtn;
 	JTextField searchField;
 	// constructor for search by surname dialog
 	public SearchBySurnameDialog(EmployeeDetails parent) {
@@ -33,7 +33,7 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane(searchPane());
 		setContentPane(scrollPane);
 
-		getRootPane().setDefaultButton(search);
+		getRootPane().setDefaultButton(searchbtn);
 		
 		setSize(500, 190);
 		setLocation(350, 250);
@@ -56,12 +56,12 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 		searchField.setFont(this.parent.font1);
 		searchField.setDocument(new JTextFieldLimit(20));
 
-		buttonPanel.add(search = new JButton("Search"));
-		search.addActionListener(this);
-		search.requestFocus();
+		buttonPanel.add(searchbtn = new JButton("Search"));
+		searchbtn.addActionListener(this);
+		searchbtn.requestFocus();
 		
-		buttonPanel.add(cancel = new JButton("Cancel"));
-		cancel.addActionListener(this);
+		buttonPanel.add(cancelbtn = new JButton("Cancel"));
+		cancelbtn.addActionListener(this);
 		
 		searchPanel.add(textPanel);
 		searchPanel.add(buttonPanel);
@@ -72,14 +72,14 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 	// action listener for save and cancel button
 	public void actionPerformed(ActionEvent e) {
 		// if option search, search for Employee
-		if(e.getSource() == search){
+		if(e.getSource() == searchbtn){
 			this.parent.searchBySurnameField.setText(searchField.getText());
 			// search Employee by surname
 			this.parent.searchEmployeeBySurname();
 			dispose();// dispose dialog
 		}// end if
 		// else dispose dialog
-		else if(e.getSource() == cancel)
+		else if(e.getSource() == cancelbtn)
 			dispose();// dispose dialog
 	}// end actionPerformed
 }// end class SearchBySurnameDialog

@@ -29,7 +29,7 @@ import net.miginfocom.swing.MigLayout;
 public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	// vector with all Employees details
 	Vector<Object> allEmployees;
-	JButton back;
+	JButton backbtn;
 	
 	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
 		setTitle("Employee Summary");
@@ -69,22 +69,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 			header.addElement(headerName[i]);
 		}// end for
 		// construnct table and choose table model for each column
-		tableModel = new DefaultTableModel(this.allEmployees, header) {
-			public Class getColumnClass(int c) {
-				switch (c) {
-				case 0:
-					return Integer.class;
-				case 4:
-					return Character.class;
-				case 6:
-					return Double.class;
-				case 7:
-					return Boolean.class;
-				default:
-					return String.class;
-				}// end switch
-			}// end getColumnClass
-		};
+		tableModel = constructTable(header);
 
 		employeeTable = new JTable(tableModel);
 		// add header names to table
@@ -101,9 +86,9 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		employeeTable.setAutoCreateRowSorter(true);
 		JScrollPane scrollPane = new JScrollPane(employeeTable);
 
-		buttonPanel.add(back = new JButton("Back"));
-		back.addActionListener(this);
-		back.setToolTipText("Return to main screen");
+		buttonPanel.add(backbtn = new JButton("Back"));
+		backbtn.addActionListener(this);
+		backbtn.setToolTipText("Return to main screen");
 		
 		summaryDialog.add(buttonPanel,"growx, pushx, wrap");
 		summaryDialog.add(scrollPane,"growx, pushx, wrap");
@@ -111,9 +96,27 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		
 		return summaryDialog;
 	}// end summaryPane
+	private DefaultTableModel constructTable(Vector<String> header) {
+		return new DefaultTableModel(this.allEmployees, header) {
+			public Class getColumnClass(int c) {
+				switch (c) {
+				case 0:
+					return Integer.class;
+				case 4:
+					return Character.class;
+				case 6:
+					return Double.class;
+				case 7:
+					return Boolean.class;
+				default:
+					return String.class;
+				}// end switch
+			}// end getColumnClass
+		};
+	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == back){
+		if (e.getSource() == backbtn){
 			dispose();
 		}
 
